@@ -1,0 +1,370 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="codezellerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BlogContent">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="content" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="BlogId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Blogs">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="image" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Languges">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="languge" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="icon" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="compiler" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="tasks">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="content" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="langugeID" Type="int" Nullable="false" />
+          <Property Name="answer" Type="nvarchar(max)" />
+          <Property Name="level" Type="int" Nullable="false" />
+          <Property Name="created_at" Type="datetime" Nullable="false" />
+          <Property Name="image" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="password" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserTasks">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userID" Type="int" Nullable="false" />
+          <Property Name="open" Type="bit" Nullable="false" />
+          <Property Name="taskID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_BlogContent_Blogs">
+          <End Role="Blogs" Type="Self.Blogs" Multiplicity="1" />
+          <End Role="BlogContent" Type="Self.BlogContent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Blogs">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="BlogContent">
+              <PropertyRef Name="BlogId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tasks_Languges">
+          <End Role="Languges" Type="Self.Languges" Multiplicity="1" />
+          <End Role="tasks" Type="Self.tasks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Languges">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tasks">
+              <PropertyRef Name="langugeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserTasks_tasks">
+          <End Role="tasks" Type="Self.tasks" Multiplicity="1" />
+          <End Role="UserTasks" Type="Self.UserTasks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tasks">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UserTasks">
+              <PropertyRef Name="taskID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserTasks_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="UserTasks" Type="Self.UserTasks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserTasks">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="codezellerModelStoreContainer">
+          <EntitySet Name="BlogContent" EntityType="Self.BlogContent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Blogs" EntityType="Self.Blogs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Languges" EntityType="Self.Languges" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tasks" EntityType="Self.tasks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserTasks" EntityType="Self.UserTasks" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_BlogContent_Blogs" Association="Self.FK_BlogContent_Blogs">
+            <End Role="Blogs" EntitySet="Blogs" />
+            <End Role="BlogContent" EntitySet="BlogContent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tasks_Languges" Association="Self.FK_tasks_Languges">
+            <End Role="Languges" EntitySet="Languges" />
+            <End Role="tasks" EntitySet="tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserTasks_tasks" Association="Self.FK_UserTasks_tasks">
+            <End Role="tasks" EntitySet="tasks" />
+            <End Role="UserTasks" EntitySet="UserTasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserTasks_Users" Association="Self.FK_UserTasks_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserTasks" EntitySet="UserTasks" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="codezellerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="codezellerEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Languges" EntityType="codezellerModel.Languge" />
+          <EntitySet Name="tasks" EntityType="codezellerModel.task" />
+          <EntitySet Name="Users" EntityType="codezellerModel.User" />
+          <EntitySet Name="UserTasks" EntityType="codezellerModel.UserTask" />
+          <AssociationSet Name="FK_tasks_Languges" Association="codezellerModel.FK_tasks_Languges">
+            <End Role="Languge" EntitySet="Languges" />
+            <End Role="task" EntitySet="tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserTasks_tasks" Association="codezellerModel.FK_UserTasks_tasks">
+            <End Role="task" EntitySet="tasks" />
+            <End Role="UserTask" EntitySet="UserTasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserTasks_Users" Association="codezellerModel.FK_UserTasks_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserTask" EntitySet="UserTasks" />
+          </AssociationSet>
+          <EntitySet Name="Blogs" EntityType="codezellerModel.Blog" />
+          <EntitySet Name="BlogContents" EntityType="codezellerModel.BlogContent" />
+          <AssociationSet Name="FK_BlogContent_Blogs" Association="codezellerModel.FK_BlogContent_Blogs">
+            <End Role="Blog" EntitySet="Blogs" />
+            <End Role="BlogContent" EntitySet="BlogContents" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Languge">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="languge1" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="icon" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="compiler" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tasks" Relationship="codezellerModel.FK_tasks_Languges" FromRole="Languge" ToRole="task" />
+        </EntityType>
+        <EntityType Name="task">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="content" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="langugeID" Type="Int32" Nullable="false" />
+          <Property Name="answer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="level" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Languge" Relationship="codezellerModel.FK_tasks_Languges" FromRole="task" ToRole="Languge" />
+          <NavigationProperty Name="UserTasks" Relationship="codezellerModel.FK_UserTasks_tasks" FromRole="task" ToRole="UserTask" />
+          <Property Name="created_at" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="image" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserTasks" Relationship="codezellerModel.FK_UserTasks_Users" FromRole="User" ToRole="UserTask" />
+        </EntityType>
+        <EntityType Name="UserTask">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userID" Type="Int32" Nullable="false" />
+          <Property Name="open" Type="Boolean" Nullable="false" />
+          <Property Name="taskID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="task" Relationship="codezellerModel.FK_UserTasks_tasks" FromRole="UserTask" ToRole="task" />
+          <NavigationProperty Name="User" Relationship="codezellerModel.FK_UserTasks_Users" FromRole="UserTask" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_tasks_Languges">
+          <End Type="codezellerModel.Languge" Role="Languge" Multiplicity="1" />
+          <End Type="codezellerModel.task" Role="task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Languge">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="task">
+              <PropertyRef Name="langugeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserTasks_tasks">
+          <End Type="codezellerModel.task" Role="task" Multiplicity="1" />
+          <End Type="codezellerModel.UserTask" Role="UserTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="task">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UserTask">
+              <PropertyRef Name="taskID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserTasks_Users">
+          <End Type="codezellerModel.User" Role="User" Multiplicity="1" />
+          <End Type="codezellerModel.UserTask" Role="UserTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserTask">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Blog">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BlogContents" Relationship="codezellerModel.FK_BlogContent_Blogs" FromRole="Blog" ToRole="BlogContent" />
+        </EntityType>
+        <EntityType Name="BlogContent">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="content" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BlogId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Blog" Relationship="codezellerModel.FK_BlogContent_Blogs" FromRole="BlogContent" ToRole="Blog" />
+        </EntityType>
+        <Association Name="FK_BlogContent_Blogs">
+          <End Type="codezellerModel.Blog" Role="Blog" Multiplicity="1" />
+          <End Type="codezellerModel.BlogContent" Role="BlogContent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Blog">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="BlogContent">
+              <PropertyRef Name="BlogId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="codezellerModelStoreContainer" CdmEntityContainer="codezellerEntities">
+          <EntitySetMapping Name="Languges">
+            <EntityTypeMapping TypeName="codezellerModel.Languge">
+              <MappingFragment StoreEntitySet="Languges">
+                <ScalarProperty Name="compiler" ColumnName="compiler" />
+                <ScalarProperty Name="icon" ColumnName="icon" />
+                <ScalarProperty Name="languge1" ColumnName="languge" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tasks">
+            <EntityTypeMapping TypeName="codezellerModel.task">
+              <MappingFragment StoreEntitySet="tasks">
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="level" ColumnName="level" />
+                <ScalarProperty Name="answer" ColumnName="answer" />
+                <ScalarProperty Name="langugeID" ColumnName="langugeID" />
+                <ScalarProperty Name="content" ColumnName="content" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="codezellerModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserTasks">
+            <EntityTypeMapping TypeName="codezellerModel.UserTask">
+              <MappingFragment StoreEntitySet="UserTasks">
+                <ScalarProperty Name="taskID" ColumnName="taskID" />
+                <ScalarProperty Name="open" ColumnName="open" />
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Blogs">
+            <EntityTypeMapping TypeName="codezellerModel.Blog">
+              <MappingFragment StoreEntitySet="Blogs">
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BlogContents">
+            <EntityTypeMapping TypeName="codezellerModel.BlogContent">
+              <MappingFragment StoreEntitySet="BlogContent">
+                <ScalarProperty Name="BlogId" ColumnName="BlogId" />
+                <ScalarProperty Name="content" ColumnName="content" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,106 @@
+﻿@using Codezeller.Models
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Code Zeller</title>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/owl.carousel.css">
+    <link rel="stylesheet" href="/css/owl.theme.default.min.css">
+
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+</head>
+<body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
+
+    <!-- PRE LOADER -->
+    <section class="preloader">
+        <div class="spinner">
+
+            <span class="spinner-rotate"></span>
+
+        </div>
+    </section>
+
+
+    <!-- MENU -->
+    @Html.Partial("nav")
+
+    <section>
+        <div class="container">
+            <div class="text-center">
+                <h1>Blog posts</h1>
+
+                <br>
+
+                <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo, alias.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-background">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-12 col-xs-12">
+                    <div class="row">
+                        @foreach (Blog item in ViewBag.blogs)
+                        {
+                            <div class="col-md-4 col-sm-6">
+                                <div class="courses-thumb courses-thumb-secondary">
+                                    <div class="courses-top">
+                                        <div class="courses-image">
+                                            @if (item.image == null)
+                                            {
+                                                <img src="/img/other-1-720x480.jpg" class="img-responsive" alt="">
+                                            }
+                                            else
+                                            {
+                                                <img src="@item.image" class="img-responsive" alt="">
+                                            }
+                                        </div>
+                                        <div class="courses-date">
+                                        </div>
+                                    </div>
+
+                                    <div class="courses-detail">
+                                        <h3><a href="/pages/content?id=@item.id">@item.title</a></h3>
+                                    </div>
+
+                                    <div class="courses-info">
+                                        <a href="/pages/content?id=@item.id" class="section-btn btn btn-primary btn-block">Read More</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    @Html.Partial("footer")
+
+
+    <!-- SCRIPTS -->
+    <script src="/js/jquery.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/owl.carousel.min.js"></script>
+    <script src="/js/smoothscroll.js"></script>
+    <script src="/js/custom.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<!-- Coding By CodingNepal - codingnepalweb.com -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Email and Password Validation</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/signup.css" />
+
+    <!-- Boxicons CSS -->
+    <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css"
+          rel="stylesheet" />
+    <!--Sweet Alert-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!--JQuery-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+<body>
+    <div class="container">
+        <header>Signup</header>
+        <form onsubmit="return false" id="myForm">
+            <div class="field fname-field">
+                <div class="input-field">
+                    <input type="text" placeholder="Enter your First Name" name="fname" class="name" />
+                </div>
+                <span class="error lname-error">
+                    <i class="bx bx-error-circle error-icon"></i>
+                    <p class="error-text">Please enter a valid name</p>
+                </span>
+            </div>
+            <div class="field name-field">
+                <div class="input-field">
+                    <input type="text" placeholder="Enter your Last Name" name="lname" class="name" />
+                </div>
+                <span class="error name-error">
+                    <i class="bx bx-error-circle error-icon"></i>
+                    <p class="error-text">Please enter a valid name</p>
+                </span>
+            </div>
+            <div class="field email-field">
+                <div class="input-field">
+                    <input type="email" placeholder="Enter your email" name="email" class="email" />
+                </div>
+                <span class="error email-error">
+                    <i class="bx bx-error-circle error-icon"></i>
+                    <p class="error-text">Please enter a valid email</p>
+                </span>
+            </div>
+            <div class="field create-password">
+                <div class="input-field">
+                    <input type="password"
+                           placeholder="Create password"
+                           class="password"
+                           name="password"
+                           />
+                    <i class="bx bx-hide show-hide"></i>
+                </div>
+                <span class="error password-error">
+                    <i class="bx bx-error-circle error-icon"></i>
+                    <p class="error-text">
+                        Please enter atleast 8 charatcer with number, symbol, small and
+                        capital letter.
+                    </p>
+                </span>
+            </div>
+            <div class="field confirm-password">
+                <div class="input-field">
+                    <input type="password"
+                           placeholder="Confirm password"
+                           class="cPassword"
+                           name="repassword"
+                           />
+                    <i class="bx bx-hide show-hide"></i>
+                </div>
+                <span class="error cPassword-error">
+                    <i class="bx bx-error-circle error-icon"></i>
+                    <p class="error-text">Password don't match</p>
+                </span>
+            </div>
+            <div class="input-field button">
+                <input type="submit" value="Submit Now" />
+            </div>
+        </form>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="../js/signup.js"></script>
+</body>
+</html>

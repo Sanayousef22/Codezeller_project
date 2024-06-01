@@ -1,0 +1,103 @@
+﻿@using Codezeller.Models
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Code Zeller</title>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/owl.carousel.css">
+    <link rel="stylesheet" href="/css/owl.theme.default.min.css">
+
+    <!-- MAIN /css -->
+    <link rel="stylesheet" href="/css/style.css">
+
+</head>
+<body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
+
+    <!-- PRE LOADER -->
+    <section class="preloader">
+        <div class="spinner">
+
+            <span class="spinner-rotate"></span>
+
+        </div>
+    </section>
+
+
+    <!-- MENU -->
+    @Html.Partial("nav")
+
+    <section>
+        <div class="container">
+            <div class="text-center">
+                <h1>Car Listing</h1>
+
+                <br>
+
+                <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo, alias.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-background">
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-lg-12 col-xs-12">
+                    <div class="row">
+                        @{
+                            int count = 0;
+                        }
+                        @foreach (Languge item in ViewBag.langs)
+                        {
+                            count++;
+                            <div class="col-lg-4 col-md-4 col-sm-6">
+                                <div class="courses-thumb courses-thumb-secondary">
+                                    <div class="courses-top">
+                                        <div class="courses-image">
+                                            <img src="@item.icon" class="img-responsive" alt="">
+                                        </div>
+                                        <div class="courses-date">
+                                        </div>
+                                    </div>
+
+                                    <div class="courses-detail">
+                                        <h3><a href="/pages/tasks?id=@item.id">@item.languge1</a></h3>
+                                    </div>
+
+                                    <div class="courses-info">
+                                        <a href="/pages/tasks?id=@item.id" class="section-btn btn btn-primary btn-block">View Tasks</a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    @Html.Partial("footer")
+
+
+
+    <!-- SCRIPTS -->
+    <script src="/js/jquery.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/owl.carousel.min.js"></script>
+    <script src="/js/smoothscroll.js"></script>
+    <script src="/js/custom.js"></script>
+
+</body>
+</html>
